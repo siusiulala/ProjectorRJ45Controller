@@ -32,15 +32,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.turnOnButton = new System.Windows.Forms.Button();
             this.turnOffButton = new System.Windows.Forms.Button();
-            this.statusLabel = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.errorLabel = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
-            this.portsComboBox = new System.Windows.Forms.ComboBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
             this.ipSaveButton = new System.Windows.Forms.Button();
@@ -54,63 +53,46 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // turnOnButton
             // 
-            this.turnOnButton.Location = new System.Drawing.Point(105, 17);
+            this.turnOnButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.turnOnButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.turnOnButton.Location = new System.Drawing.Point(10, 8);
             this.turnOnButton.Name = "turnOnButton";
-            this.turnOnButton.Size = new System.Drawing.Size(75, 23);
+            this.turnOnButton.Size = new System.Drawing.Size(100, 50);
             this.turnOnButton.TabIndex = 0;
-            this.turnOnButton.Text = "开机";
-            this.turnOnButton.UseVisualStyleBackColor = true;
+            this.turnOnButton.Text = "批量开机";
+            this.turnOnButton.UseVisualStyleBackColor = false;
             this.turnOnButton.Click += new System.EventHandler(this.turnOnButton_Click);
             // 
             // turnOffButton
             // 
-            this.turnOffButton.Location = new System.Drawing.Point(186, 17);
+            this.turnOffButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.turnOffButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold);
+            this.turnOffButton.Location = new System.Drawing.Point(116, 8);
             this.turnOffButton.Name = "turnOffButton";
-            this.turnOffButton.Size = new System.Drawing.Size(75, 23);
+            this.turnOffButton.Size = new System.Drawing.Size(100, 50);
             this.turnOffButton.TabIndex = 1;
-            this.turnOffButton.Text = "关机";
-            this.turnOffButton.UseVisualStyleBackColor = true;
+            this.turnOffButton.Text = "批量关机";
+            this.turnOffButton.UseVisualStyleBackColor = false;
             this.turnOffButton.Click += new System.EventHandler(this.turnOffButton_Click);
-            // 
-            // statusLabel
-            // 
-            this.statusLabel.AutoSize = true;
-            this.statusLabel.Location = new System.Drawing.Point(423, 17);
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(52, 12);
-            this.statusLabel.TabIndex = 3;
-            this.statusLabel.Text = "Status: off";
             // 
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 20000;
+            this.timer1.Interval = 30000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // errorLabel
-            // 
-            this.errorLabel.AutoSize = true;
-            this.errorLabel.ForeColor = System.Drawing.Color.Red;
-            this.errorLabel.Location = new System.Drawing.Point(31, 24);
-            this.errorLabel.Name = "errorLabel";
-            this.errorLabel.Size = new System.Drawing.Size(33, 12);
-            this.errorLabel.TabIndex = 6;
-            this.errorLabel.Text = "label1";
             // 
             // tabControl1
             // 
@@ -130,11 +112,8 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.panel2);
-            this.tabPage1.Controls.Add(this.portsComboBox);
             this.tabPage1.Controls.Add(this.turnOnButton);
             this.tabPage1.Controls.Add(this.turnOffButton);
-            this.tabPage1.Controls.Add(this.errorLabel);
-            this.tabPage1.Controls.Add(this.statusLabel);
             this.tabPage1.Location = new System.Drawing.Point(4, 52);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -184,16 +163,23 @@
             this.label3.Text = "投影机no.11";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // portsComboBox
+            // pictureBox1
             // 
-            this.portsComboBox.FormattingEnabled = true;
-            this.portsComboBox.Items.AddRange(new object[] {
-            "ww",
-            "wwe"});
-            this.portsComboBox.Location = new System.Drawing.Point(354, 38);
-            this.portsComboBox.Name = "portsComboBox";
-            this.portsComboBox.Size = new System.Drawing.Size(121, 20);
-            this.portsComboBox.TabIndex = 8;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(111, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(21, 16);
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(138, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(32, 18);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
@@ -213,7 +199,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(9, 23);
+            this.label1.Location = new System.Drawing.Point(8, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(88, 16);
             this.label1.TabIndex = 9;
@@ -221,9 +207,10 @@
             // 
             // ipSaveButton
             // 
-            this.ipSaveButton.Location = new System.Drawing.Point(401, 16);
+            this.ipSaveButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold);
+            this.ipSaveButton.Location = new System.Drawing.Point(378, 11);
             this.ipSaveButton.Name = "ipSaveButton";
-            this.ipSaveButton.Size = new System.Drawing.Size(75, 23);
+            this.ipSaveButton.Size = new System.Drawing.Size(100, 36);
             this.ipSaveButton.TabIndex = 8;
             this.ipSaveButton.Text = "保存配置";
             this.ipSaveButton.UseVisualStyleBackColor = true;
@@ -277,7 +264,7 @@
             // ipNumInput
             // 
             this.ipNumInput.Font = new System.Drawing.Font("新細明體", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.ipNumInput.Location = new System.Drawing.Point(103, 19);
+            this.ipNumInput.Location = new System.Drawing.Point(102, 18);
             this.ipNumInput.Name = "ipNumInput";
             this.ipNumInput.Size = new System.Drawing.Size(55, 23);
             this.ipNumInput.TabIndex = 6;
@@ -315,8 +302,9 @@
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "if_traffic_lights_64903.png");
             this.imageList1.Images.SetKeyName(1, "if_application_form_edit_35650.png");
-            this.imageList1.Images.SetKeyName(2, "if_chart_organisation_35853.png");
-            this.imageList1.Images.SetKeyName(3, "if_dns_setting_64074.png");
+            this.imageList1.Images.SetKeyName(2, "if_console-error_83604.png");
+            this.imageList1.Images.SetKeyName(3, "if_chart_organisation_35853.png");
+            this.imageList1.Images.SetKeyName(4, "if_dns_setting_64074.png");
             // 
             // imageList2
             // 
@@ -325,29 +313,13 @@
             this.imageList2.Images.SetKeyName(0, "grey16.png");
             this.imageList2.Images.SetKeyName(1, "green16.png");
             this.imageList2.Images.SetKeyName(2, "red16.png");
+            this.imageList2.Images.SetKeyName(3, "blue16.png");
+            this.imageList2.Images.SetKeyName(4, "yellow16.png");
             // 
             // timer2
             // 
             this.timer2.Enabled = true;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(111, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(21, 16);
-            this.pictureBox1.TabIndex = 8;
-            this.pictureBox1.TabStop = false;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(138, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(32, 18);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -361,21 +333,20 @@
             this.MinimumSize = new System.Drawing.Size(523, 457);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "投影机控制";
+            this.Text = "投影机控制器";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -384,9 +355,7 @@
 
         private System.Windows.Forms.Button turnOnButton;
         private System.Windows.Forms.Button turnOffButton;
-        private System.Windows.Forms.Label statusLabel;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label errorLabel;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -396,7 +365,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button ipSaveButton;
-        private System.Windows.Forms.ComboBox portsComboBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel2;

@@ -248,7 +248,6 @@ namespace ProjectorControl
         private void timer1_Tick(object sender, EventArgs e)
         {
             refreshStausTable();
-           // statusLabel.Text = statusStr;
            
         }
 
@@ -315,13 +314,11 @@ namespace ProjectorControl
                 if (socket.Connected)
                 {
                     Console.WriteLine("Socket is Connected");
-                    errorLabel.Text = "Socket is Connected";
                     string cmdStatus = "0x25, 0x31, 0x50, 0x4F, 0x57, 0x52, 0x20,  0x31, 0x0D";//optoma
                     var cmd = CommandBytes(cmdStatus);
 
                     socket.Send(cmd, cmd.Length, 0);
                     Console.WriteLine("Socket send command");
-                    errorLabel.Text = "Socket send command";
                     
                 }
             }
@@ -332,7 +329,7 @@ namespace ProjectorControl
                     statusArray[idx] = -1;
                 }
                 Console.WriteLine("no." + (idx + 1) + ":  " + ex.Message);
-                consoleTextQueue.Enqueue("投影机 no." + (idx + 1) + ":  " + ex.Message + "\n");
+                consoleTextQueue.Enqueue("(开机) 投影机 no." + (idx + 1) + ":  " + ex.Message + "\n");
             }
         }
 
@@ -355,13 +352,11 @@ namespace ProjectorControl
                 if (socket.Connected)
                 {
                     Console.WriteLine("Socket is Connected");
-                    errorLabel.Text = "Socket is Connected";
                     string cmdStatus = "0x25, 0x31, 0x50, 0x4F, 0x57, 0x52, 0x20,  0x30, 0x0D";//optoma
                     var cmd = CommandBytes(cmdStatus);
 
                     socket.Send(cmd, cmd.Length, 0);
                     Console.WriteLine("Socket send command");
-                    errorLabel.Text = "Socket send command";
 
                 }
             }
@@ -372,7 +367,7 @@ namespace ProjectorControl
                     statusArray[idx] = -1;
                 }
                 Console.WriteLine("no." + (idx + 1) + ":  " + ex.Message);
-                consoleTextQueue.Enqueue("投影机 no." + (idx + 1) + ":  " + ex.Message + "\n");
+                consoleTextQueue.Enqueue("(关机) 投影机 no." + (idx + 1) + ":  " + ex.Message + "\n");
             }
         }
 
@@ -401,18 +396,15 @@ namespace ProjectorControl
                     if (this.socketArray[idx].Connected)
                     {
                         Console.WriteLine("Socket is Connected");
-                        errorLabel.Text = "Socket is Connected";
                         string cmdStatus = "0x25, 0x31, 0x50, 0x4F, 0x57, 0x52, 0x20,  0x3F, 0x0D";//optoma
                         var cmd = CommandBytes(cmdStatus);
 
                         this.socketArray[idx].Send(cmd, cmd.Length, 0);
                         Console.WriteLine("Socket send command");
-                        errorLabel.Text = "Socket send command";
 
                         byte[] bytes = new byte[256];
                         this.socketArray[idx].Receive(bytes);
                         Console.WriteLine(Encoding.UTF8.GetString(bytes));
-                        errorLabel.Text = Encoding.UTF8.GetString(bytes);
                         if (Encoding.UTF8.GetString(bytes).Contains("%1POWR=0"))
                         {
                            // statusStr = "Status: Power-Off";
@@ -425,13 +417,15 @@ namespace ProjectorControl
                         }
                         else if (Encoding.UTF8.GetString(bytes).Contains("%1POWR=2"))
                         {
-                           // statusStr = "Status: Cooling";
+                            statusArray[idx] = 2;
+                            // statusStr = "Status: Cooling";
                         }
                         else if (Encoding.UTF8.GetString(bytes).Contains("%1POWR=3"))
                         {
-                          //  statusStr = "Status: Warm-up";
+                            statusArray[idx] = 3;
+                            //  statusStr = "Status: Warm-up";
                         }
-                        Thread.Sleep(10000);
+                        Thread.Sleep(15000);
                     }
                 }
                 catch (Exception ex)
@@ -553,14 +547,20 @@ namespace ProjectorControl
                     statusImg.SizeMode = PictureBoxSizeMode.Zoom;
                     switch (statusArray[i])
                     {
-                        case 0:
-                            statusImg.Image = imageList2.Images[2];  //0: disconect 1: on 2: off
+                        case 0:     // Power-On
+                            statusImg.Image = imageList2.Images[2];  
                             break;
-                        case 1:
-                            statusImg.Image = imageList2.Images[1];  //0: disconect 1: on 2: off
+                        case 1:     // Power-Off
+                            statusImg.Image = imageList2.Images[1];  
                             break;
-                        default:
-                            statusImg.Image = imageList2.Images[0];  //0: disconect 1: on 2: off
+                        case 2:     // Cooling
+                            statusImg.Image = imageList2.Images[3]; 
+                            break;
+                        case 3:     // Warm-up
+                            statusImg.Image = imageList2.Images[4]; 
+                            break;
+                        default:     // disconect
+                            statusImg.Image = imageList2.Images[0];  
                             break;
                     }
                     
