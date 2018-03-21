@@ -125,49 +125,6 @@ namespace ProjectorControl
                 Thread t = new Thread(new ParameterizedThreadStart(turnOnThread));
                 t.Start(i);
             }
-
-            //try
-            //{
-            //    IPAddress ipAddress = IPAddress.Parse(ipInput.Text);
-
-            //    //IPAddress ipAddress = IPAddress.Parse("169.254.107.113");
-            //    IPEndPoint ipEndPoint = new IPEndPoint(ipAddress, 4352);
-
-            //    //Create a TCP/IP  socket.
-            //    if (this._socketCliect == null)
-            //    {
-            //        this._socketCliect = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            //    }
-
-            //    EndPoint endPoint = (EndPoint)ipEndPoint;
-            //    if (!_socketCliect.Connected)
-            //    {
-            //        this._socketCliect.Connect(endPoint);
-            //    }
-            //    if (this._socketCliect.Connected)
-            //    {
-            //        Console.WriteLine("Socket is Connected");
-            //        errorLabel.Text = "Socket is Connected";
-            //        //string cmdOn = "0x23, 0x30, 0x30, 0x30, 0x30, 0x20, 0x31, 0x0D";//z28
-            //        string cmdOn = "0x25, 0x31, 0x50, 0x4F, 0x57, 0x52, 0x20,  0x31, 0x0D";//optoma
-            //        var cmd = CommandBytes(cmdOn);
-
-            //        this._socketCliect.Send(cmd, cmd.Length, 0);
-            //        Console.WriteLine("Socket send command");
-            //        errorLabel.Text = "Socket send command";
-
-            //        byte[] bytes = new byte[256];
-            //        this._socketCliect.Receive(bytes);
-            //        Console.WriteLine(Encoding.UTF8.GetString(bytes));
-            //        errorLabel.Text = Encoding.UTF8.GetString(bytes);
-            //    }
-            //}
-            //catch(Exception ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //    errorLabel.Text = ex.Message;
-            //    //turnOnButton_Click(sender, e);
-            //}
 #endif
         }
 
@@ -200,46 +157,6 @@ namespace ProjectorControl
                 Thread t = new Thread(new ParameterizedThreadStart(turnOffThread));
                 t.Start(i);
             }
-            //try
-            //{
-            //    IPAddress ipAddress = IPAddress.Parse(ipInput.Text);
-            //    //IPAddress ipAddress = IPAddress.Parse("169.254.177.20");
-            //    //IPAddress ipAddress = IPAddress.Parse("169.254.107.113");
-            //    IPEndPoint ipEndPoint = new IPEndPoint(ipAddress, 4352);
-
-            //    //Create a TCP/IP  socket.
-            //    if (this._socketCliect == null)
-            //    {
-            //        this._socketCliect = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            //    }
-
-            //    EndPoint endPoint = (EndPoint)ipEndPoint;
-            //    if (!_socketCliect.Connected)
-            //    {
-            //        this._socketCliect.Connect(endPoint);
-            //    }
-            //    if (this._socketCliect.Connected)
-            //    {
-            //        Console.WriteLine("Socket is Connected");
-            //        errorLabel.Text = "Socket is Connected";
-            //        string cmdOff = "0x25, 0x31, 0x50, 0x4F, 0x57, 0x52, 0x20,  0x30, 0x0D";//optoma
-            //        var cmd = CommandBytes(cmdOff);
-
-            //        this._socketCliect.Send(cmd, cmd.Length, 0);
-            //        Console.WriteLine("Socket send command");
-            //        errorLabel.Text = "Socket send command";
-
-            //        byte[] bytes = new byte[256];
-            //        this._socketCliect.Receive(bytes);
-            //        Console.WriteLine(Encoding.UTF8.GetString(bytes));
-            //        errorLabel.Text = Encoding.UTF8.GetString(bytes);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //    errorLabel.Text = ex.Message;
-            //}
 #endif
 
         }
@@ -248,7 +165,6 @@ namespace ProjectorControl
         private void timer1_Tick(object sender, EventArgs e)
         {
             refreshStausTable();
-           
         }
 
         static byte[] StringToByteArray(string hex)
@@ -284,7 +200,7 @@ namespace ProjectorControl
             tabControl1.TabPages[1].Text = "连线设定";
             tabControl1.TabPages[2].ImageIndex = 2;
             tabControl1.TabPages[2].Text = "错误信息";
-            refreshStausTable();
+            createStausTable();
 
             threadArray = new Thread[ipNum];
             for(int i=0;i< ipNum;i++)
@@ -292,7 +208,7 @@ namespace ProjectorControl
                 threadArray[i] = new Thread(new ParameterizedThreadStart(checkStatusThread));
                 threadArray[i].Start(i);
             }
-            
+            timer1.Enabled = true;
         }
 
         private void turnOnThread(object value)
@@ -526,7 +442,7 @@ namespace ProjectorControl
             }
         }
 
-        private void refreshStausTable()
+        private void createStausTable()
         {
             tableLayoutPanel2.Controls.Clear();
             int ipNum = ipArray.Count();
@@ -583,6 +499,36 @@ namespace ProjectorControl
                 }
             }
         }
+
+        private void refreshStausTable()
+        {
+            int ipNum = ipArray.Count();
+            if (ipNum > 0)
+            {
+                for (int i = 0; i < ipNum; i++)
+                {
+                    PictureBox statusImg = tableLayoutPanel2.GetControlFromPosition(4 * (i % 2) + 1, i / 2) as PictureBox;
+                    switch (statusArray[i])
+                    {
+                        case 0:     // Power-On
+                            statusImg.Image = imageList2.Images[2];
+                            break;
+                        case 1:     // Power-Off
+                            statusImg.Image = imageList2.Images[1];
+                            break;
+                        case 2:     // Cooling
+                            statusImg.Image = imageList2.Images[3];
+                            break;
+                        case 3:     // Warm-up
+                            statusImg.Image = imageList2.Images[4];
+                            break;
+                        default:     // disconect
+                            statusImg.Image = imageList2.Images[0];
+                            break;
+                    }
+                }
+            }
+         }
 
         private void onButton_Click(object sender, EventArgs e)
         {

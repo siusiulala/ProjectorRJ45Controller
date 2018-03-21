@@ -7,7 +7,7 @@
     <ProjectGuid>{8F6AAE2B-7D30-4F00-9DFA-27647B098919}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>ProjectorControl</RootNamespace>
-    <AssemblyName>ProjectorControl</AssemblyName>
+    <AssemblyName>ProjectorControlPanel</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -30,6 +30,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>if_control-panel-px-png_63465.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -84,6 +87,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="image\CiCS_logo_B_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="if_control-panel-px-png_63465.ico" />
+    <Content Include="if_panel_setting_88835_t8R_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
