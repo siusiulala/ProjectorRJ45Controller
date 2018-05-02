@@ -63,9 +63,29 @@ namespace ProjectorControl.Properties {
         /// <summary>
         ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
         /// </summary>
-        internal static System.Drawing.Bitmap CiCS_logo_B_3 {
+        internal static System.Drawing.Bitmap CiCS_logo_B_1 {
             get {
-                object obj = ResourceManager.GetObject("CiCS_logo_B_3", resourceCulture);
+                object obj = ResourceManager.GetObject("CiCS_logo_B_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+        /// </summary>
+        internal static System.Drawing.Bitmap coretronic_logo {
+            get {
+                object obj = ResourceManager.GetObject("coretronic_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+        /// </summary>
+        internal static System.Drawing.Bitmap optoma_logo {
+            get {
+                object obj = ResourceManager.GetObject("optoma_logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
