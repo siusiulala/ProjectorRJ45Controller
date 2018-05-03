@@ -1,5 +1,10 @@
-﻿//#define KEYGEN_MODE
+﻿/* Build Keygen SOP :
+ *  1. Uncomment #define KEYGEN_MODE at Line 7
+ *  2. Open Setting of "ProjectorControl" -> Application , edit Assembly name to "ProjectorControlPanel_Keygen"
+ *  3. Change the icon  
+ */
 
+//#define KEYGEN_MODE
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;

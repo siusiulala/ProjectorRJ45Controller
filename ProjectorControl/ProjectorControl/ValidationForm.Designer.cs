@@ -51,7 +51,7 @@
             // validButton
             // 
             this.validButton.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.validButton.Location = new System.Drawing.Point(163, 289);
+            this.validButton.Location = new System.Drawing.Point(177, 290);
             this.validButton.Name = "validButton";
             this.validButton.Size = new System.Drawing.Size(145, 50);
             this.validButton.TabIndex = 2;
@@ -94,7 +94,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(113, 25);
+            this.pictureBox1.Location = new System.Drawing.Point(122, 25);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(256, 132);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -124,10 +124,13 @@
             this.Controls.Add(this.validButton);
             this.Controls.Add(this.validKey);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(500, 400);
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(500, 400);
             this.Name = "ValidationForm";
             this.Text = "Validation";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.ValidationForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
