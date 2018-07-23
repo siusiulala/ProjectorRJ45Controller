@@ -24,6 +24,7 @@ namespace ProjectorControl
 #elif USE_RJ45
         Socket _socketCliect;
         string[]      ipArray;
+        string[]      typeArray;
         Socket[]    socketArray;
         Thread[]   threadArray;
         int[]           statusArray;
@@ -217,8 +218,9 @@ namespace ProjectorControl
             try
             {
                 IPAddress ipAddress = IPAddress.Parse(ipArray[idx]);
-                IPEndPoint ipEndPoint = new IPEndPoint(ipAddress, 4352);
-
+                int port = CommandTable.getPort(typeArray[idx]);
+                IPEndPoint ipEndPoint = new IPEndPoint(ipAddress, port);
+                Console.WriteLine("IP: "+ ipAddress+" port: " + port);
                 //Create a TCP/IP  socket.
                 Socket socket  = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
@@ -230,7 +232,7 @@ namespace ProjectorControl
                 if (socket.Connected)
                 {
                     Console.WriteLine("Socket is Connected");
-                    string cmdStatus = "0x25, 0x31, 0x50, 0x4F, 0x57, 0x52, 0x20,  0x31, 0x0D";//optoma
+                    string cmdStatus = CommandTable.getPowerOnCommand(typeArray[idx]); //"0x25, 0x31, 0x50, 0x4F, 0x57, 0x52, 0x20,  0x31, 0x0D";//optoma
                     var cmd = CommandBytes(cmdStatus);
 
                     socket.Send(cmd, cmd.Length, 0);
@@ -255,7 +257,8 @@ namespace ProjectorControl
             try
             {
                 IPAddress ipAddress = IPAddress.Parse(ipArray[idx]);
-                IPEndPoint ipEndPoint = new IPEndPoint(ipAddress, 4352);
+                int port = CommandTable.getPort(typeArray[idx]);
+                IPEndPoint ipEndPoint = new IPEndPoint(ipAddress, port);
 
                 //Create a TCP/IP  socket.
                 Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -268,7 +271,7 @@ namespace ProjectorControl
                 if (socket.Connected)
                 {
                     Console.WriteLine("Socket is Connected");
-                    string cmdStatus = "0x25, 0x31, 0x50, 0x4F, 0x57, 0x52, 0x20,  0x30, 0x0D";//optoma
+                    string cmdStatus = CommandTable.getPowerOffCommand(typeArray[idx]); //"0x25, 0x31, 0x50, 0x4F, 0x57, 0x52, 0x20,  0x30, 0x0D";//optoma
                     var cmd = CommandBytes(cmdStatus);
 
                     socket.Send(cmd, cmd.Length, 0);
@@ -295,8 +298,8 @@ namespace ProjectorControl
                 try
                 {
                     IPAddress ipAddress = IPAddress.Parse(ipArray[idx]);
-                    
-                    IPEndPoint ipEndPoint = new IPEndPoint(ipAddress, 4352);
+                    int port = CommandTable.getPort(typeArray[idx]);
+                    IPEndPoint ipEndPoint = new IPEndPoint(ipAddress, port);
 
                     //Create a TCP/IP  socket.
                     if (this.socketArray[idx] == null)
@@ -312,7 +315,7 @@ namespace ProjectorControl
                     if (this.socketArray[idx].Connected)
                     {
                         Console.WriteLine("Socket is Connected");
-                        string cmdStatus = "0x25, 0x31, 0x50, 0x4F, 0x57, 0x52, 0x20,  0x3F, 0x0D";//optoma
+                        string cmdStatus = CommandTable.getPowerStateCommand(typeArray[idx]);//"0x25, 0x31, 0x50, 0x4F, 0x57, 0x52, 0x20,  0x3F, 0x0D";//optoma
                         var cmd = CommandBytes(cmdStatus);
 
                         this.socketArray[idx].Send(cmd, cmd.Length, 0);
@@ -321,12 +324,12 @@ namespace ProjectorControl
                         byte[] bytes = new byte[256];
                         this.socketArray[idx].Receive(bytes);
                         Console.WriteLine(Encoding.UTF8.GetString(bytes));
-                        if (Encoding.UTF8.GetString(bytes).Contains("%1POWR=0"))
+                        if (Encoding.UTF8.GetString(bytes).Contains("%1POWR=0") || Encoding.UTF8.GetString(bytes).Contains("OK0"))
                         {
                            // statusStr = "Status: Power-Off";
                             statusArray[idx] = 0;
                         }
-                        else if (Encoding.UTF8.GetString(bytes).Contains("%1POWR=1"))
+                        else if (Encoding.UTF8.GetString(bytes).Contains("%1POWR=1") || Encoding.UTF8.GetString(bytes).Contains("OK1"))
                         {
                             //statusStr = "Status: Power-On";
                             statusArray[idx] = 1;
@@ -368,6 +371,7 @@ namespace ProjectorControl
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             var appSettings = ConfigurationManager.AppSettings;
             ipArray = config.AppSettings.Settings["IPAddrArray"].Value.Split(',');//ConfigurationManager.AppSettings["IPAddrArray"].Split(',');
+            typeArray = config.AppSettings.Settings["TypeArray"].Value.Split(',');
         }
 
         private void ipNumInput_KeyPress(object sender, KeyPressEventArgs e)
@@ -391,22 +395,29 @@ namespace ProjectorControl
             {
                 if (ipNum > 30) { ipNum = 30; }
                 tableLayoutPanel1.RowCount = ipNum;
-                tableLayoutPanel1.Height = ((ipNum-1)/2 +1) * 29;
-                for(int i = 0; i < ipNum; i++)
+                tableLayoutPanel1.Height = ipNum  * 29;
+                for (int i = 0; i < ipNum; i++)
                 {
                     Label idLabel = new Label();
                     idLabel.Text = "投影机 no." + (i + 1);
                     idLabel.AutoSize = false;
                     idLabel.Size = new Size(103, 28);
                     idLabel.Font = new Font("arial", 12);
-                    tableLayoutPanel1.Controls.Add(idLabel, 2 * (i % 2), i / 2);
+                    tableLayoutPanel1.Controls.Add(idLabel, 0 , i );
 
                     TextBox ipInputBx = new TextBox();
                     ipInputBx.Text = (i < ipArray.Count()) ? ipArray[i] : "";
                     ipInputBx.Font = new Font("arial", 10);
                     ipInputBx.Size = new Size(140, 23);
-                    tableLayoutPanel1.Controls.Add(ipInputBx, 2 * (i % 2) + 1, i / 2);
-                    
+                    tableLayoutPanel1.Controls.Add(ipInputBx,  1, i );
+
+                    ComboBox comboBox = new ComboBox();
+                    comboBox.Text = (i < ipArray.Count()) ? typeArray[i] : "";
+                    comboBox.Items.Add("Z15WST");
+                    comboBox.Items.Add("EH400+");
+                    comboBox.Items.Add("ZX310ST");
+                    comboBox.Items.Add("ZW310ST");
+                    tableLayoutPanel1.Controls.Add(comboBox, 2, i);
                 }
             }
         }
@@ -417,7 +428,7 @@ namespace ProjectorControl
             string ipOutputStr = "";
             for (int i = 0; i < ipNum; i++)
             {
-                TextBox ipInputBx = (TextBox) tableLayoutPanel1.GetControlFromPosition(2 * (i % 2) + 1, i / 2);
+                TextBox ipInputBx = (TextBox)tableLayoutPanel1.GetControlFromPosition(1, i);
                 ipOutputStr = ipOutputStr + ipInputBx.Text + ",";
                 Console.WriteLine(ipInputBx.Text);
             }
@@ -426,7 +437,19 @@ namespace ProjectorControl
             config.AppSettings.Settings.Remove("IPAddrArray");
             config.AppSettings.Settings.Add("IPAddrArray", ipOutputStr);
             config.Save();
-
+            //
+            string typeOutputStr = "";
+            for (int i = 0; i < ipNum; i++)
+            {
+                ComboBox comboBox = (ComboBox)tableLayoutPanel1.GetControlFromPosition(2, i);
+                typeOutputStr = typeOutputStr + comboBox.Text + ",";
+                Console.WriteLine(comboBox.Text);
+            }
+            typeOutputStr = typeOutputStr.Substring(0, typeOutputStr.Length - 1);
+            config.AppSettings.Settings.Remove("TypeArray");
+            config.AppSettings.Settings.Add("TypeArray", typeOutputStr);
+            config.Save();
+            //
             System.Diagnostics.Process.Start(Application.ExecutablePath);
             this.Close();
         }
