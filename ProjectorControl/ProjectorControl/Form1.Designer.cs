@@ -53,6 +53,9 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.waitMessage = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -62,6 +65,7 @@
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.waitMessage.SuspendLayout();
             this.SuspendLayout();
             // 
             // turnOnButton
@@ -90,7 +94,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 5000;
+            this.timer1.Interval = 3000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // tabControl1
@@ -125,6 +129,7 @@
             // 
             this.panel2.AutoScroll = true;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.waitMessage);
             this.panel2.Controls.Add(this.tableLayoutPanel2);
             this.panel2.Location = new System.Drawing.Point(3, 64);
             this.panel2.Name = "panel2";
@@ -248,7 +253,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 23);
             this.textBox1.TabIndex = 6;
-            this.textBox1.Text = "Z";
             // 
             // label2
             // 
@@ -267,7 +271,7 @@
             this.ipNumInput.Name = "ipNumInput";
             this.ipNumInput.Size = new System.Drawing.Size(55, 23);
             this.ipNumInput.TabIndex = 6;
-            this.ipNumInput.Text = "1";
+            this.ipNumInput.Text = "0";
             this.ipNumInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.ipNumInput.TextChanged += new System.EventHandler(this.ipNumInput_TextChanged);
             this.ipNumInput.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ipNumInput_KeyPress);
@@ -320,6 +324,31 @@
             this.timer2.Enabled = true;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // waitMessage
+            // 
+            this.waitMessage.BackColor = System.Drawing.Color.LightGray;
+            this.waitMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.waitMessage.Controls.Add(this.label4);
+            this.waitMessage.Location = new System.Drawing.Point(143, 71);
+            this.waitMessage.Name = "waitMessage";
+            this.waitMessage.Size = new System.Drawing.Size(200, 100);
+            this.waitMessage.TabIndex = 1;
+            this.waitMessage.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(33, 34);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(143, 24);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Please wait ...";
+            // 
+            // timer3
+            // 
+            this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -346,6 +375,8 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
+            this.waitMessage.ResumeLayout(false);
+            this.waitMessage.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -375,6 +406,9 @@
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel waitMessage;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Timer timer3;
     }
 }
 

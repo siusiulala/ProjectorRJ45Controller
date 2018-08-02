@@ -29,7 +29,9 @@ namespace ProjectorControl
         Thread[]   threadArray;
         int[]           statusArray;
         bool[]        stopflagArray;
+        int[]           cmdArray;
         Queue<string> consoleTextQueue = new Queue<string>();
+        bool waitmsgIsVisible = false;
 #endif
         
 
@@ -119,12 +121,13 @@ namespace ProjectorControl
                 sp.Close();
             }
 #elif USE_RJ45
-
+            waitmsgIsVisible = true;
             int ipNum = ipArray.Length;
             for (int i = 0; i < ipNum; i++)
             {
-                Thread t = new Thread(new ParameterizedThreadStart(turnOnThread));
-                t.Start(i);
+                cmdArray[i] = 1;
+                //Thread t = new Thread(new ParameterizedThreadStart(turnOnThread));
+                //t.Start(i);
             }
 #endif
         }
@@ -152,11 +155,13 @@ namespace ProjectorControl
                 sp.Close();
             }
 #elif USE_RJ45
+            waitmsgIsVisible = true;
             int ipNum = ipArray.Length;
             for (int i = 0; i < ipNum; i++)
             {
-                Thread t = new Thread(new ParameterizedThreadStart(turnOffThread));
-                t.Start(i);
+                cmdArray[i] = 0;
+                //Thread t = new Thread(new ParameterizedThreadStart(turnOffThread));
+                //t.Start(i);
             }
 #endif
 
@@ -190,6 +195,7 @@ namespace ProjectorControl
             int ipNum = ipArray.Length;
             socketArray = new Socket[ipNum];
             statusArray = new int[ipNum];
+            cmdArray = new int[ipNum];
             stopflagArray = new bool[ipNum] ;
             ipNumInput.Text = ipNum + "";
     
@@ -206,10 +212,12 @@ namespace ProjectorControl
             threadArray = new Thread[ipNum];
             for(int i=0;i< ipNum;i++)
             {
+                cmdArray[i] = -1;
                 threadArray[i] = new Thread(new ParameterizedThreadStart(checkStatusThread));
                 threadArray[i].Start(i);
             }
             timer1.Enabled = true;
+            timer3.Enabled = true;
         }
 
         private void turnOnThread(object value)
@@ -297,6 +305,7 @@ namespace ProjectorControl
             {
                 try
                 {
+                    waitmsgIsVisible = false;
                     IPAddress ipAddress = IPAddress.Parse(ipArray[idx]);
                     int port = CommandTable.getPort(typeArray[idx]);
                     IPEndPoint ipEndPoint = new IPEndPoint(ipAddress, port);
@@ -315,7 +324,22 @@ namespace ProjectorControl
                     if (this.socketArray[idx].Connected)
                     {
                         Console.WriteLine("Socket is Connected");
-                        string cmdStatus = CommandTable.getPowerStateCommand(typeArray[idx]);//"0x25, 0x31, 0x50, 0x4F, 0x57, 0x52, 0x20,  0x3F, 0x0D";//optoma
+                        string cmdStatus="";
+                        if (cmdArray[idx] == -1)
+                        {
+                            cmdStatus = CommandTable.getPowerStateCommand(typeArray[idx]);//"0x25, 0x31, 0x50, 0x4F, 0x57, 0x52, 0x20,  0x3F, 0x0D";//optoma
+
+                        }
+                        else if (cmdArray[idx] == 1)
+                        {
+                            cmdStatus = CommandTable.getPowerOnCommand(typeArray[idx]);
+                            cmdArray[idx] = -1;
+                        }
+                        else if (cmdArray[idx] == 0)
+                        {
+                            cmdStatus = CommandTable.getPowerOffCommand(typeArray[idx]);
+                            cmdArray[idx] = -1;
+                        }
                         var cmd = CommandBytes(cmdStatus);
 
                         this.socketArray[idx].Send(cmd, cmd.Length, 0);
@@ -324,12 +348,12 @@ namespace ProjectorControl
                         byte[] bytes = new byte[256];
                         this.socketArray[idx].Receive(bytes);
                         Console.WriteLine(Encoding.UTF8.GetString(bytes));
-                        if (Encoding.UTF8.GetString(bytes).Contains("%1POWR=0") || Encoding.UTF8.GetString(bytes).Contains("OK0"))
+                        if (Encoding.UTF8.GetString(bytes).Contains("%1POWR=0") || Encoding.UTF8.GetString(bytes).ToUpper().Contains("OK0") || Encoding.UTF8.GetString(bytes).Contains("Ok0"))
                         {
                            // statusStr = "Status: Power-Off";
                             statusArray[idx] = 0;
                         }
-                        else if (Encoding.UTF8.GetString(bytes).Contains("%1POWR=1") || Encoding.UTF8.GetString(bytes).Contains("OK1"))
+                        else if (Encoding.UTF8.GetString(bytes).Contains("%1POWR=1") || Encoding.UTF8.GetString(bytes).ToUpper().Contains("OK1") || Encoding.UTF8.GetString(bytes).Contains("Ok1"))
                         {
                             //statusStr = "Status: Power-On";
                             statusArray[idx] = 1;
@@ -555,18 +579,22 @@ namespace ProjectorControl
 
         private void onButton_Click(object sender, EventArgs e)
         {
+            waitmsgIsVisible = true;
             Button onButton = sender as Button;
             Console.WriteLine(onButton.Tag+" on");
-            Thread t = new Thread(new ParameterizedThreadStart(turnOnThread));
-            t.Start(onButton.Tag);
+            //Thread t = new Thread(new ParameterizedThreadStart(turnOnThread));
+            //t.Start(onButton.Tag);
+            cmdArray[(int)onButton.Tag] = 1;
         }
 
         private void offButton_Click(object sender, EventArgs e)
         {
+            waitmsgIsVisible = true;
             Button offButton = sender as Button;
             Console.WriteLine(offButton.Tag + " off");
-            Thread t = new Thread(new ParameterizedThreadStart(turnOffThread));
-            t.Start(offButton.Tag);
+            //Thread t = new Thread(new ParameterizedThreadStart(turnOffThread));
+            //t.Start(offButton.Tag);
+            cmdArray[(int)offButton.Tag] = 0;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -597,6 +625,18 @@ namespace ProjectorControl
                 consoleOutput.Text = consoleOutput.Text.Remove(start_index, count);
             }
            
+        }
+
+        private void timer3_Tick(object sender, EventArgs e)
+        {
+            if (waitmsgIsVisible)
+            {
+                waitMessage.Visible = true;
+            }
+            else
+            {
+                waitMessage.Visible = false;
+            }
         }
     }
     
