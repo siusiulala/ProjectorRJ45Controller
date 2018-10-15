@@ -36,6 +36,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.waitMessage = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -53,19 +55,17 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.waitMessage = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.waitMessage.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.waitMessage.SuspendLayout();
             this.SuspendLayout();
             // 
             // turnOnButton
@@ -135,6 +135,27 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(492, 298);
             this.panel2.TabIndex = 9;
+            // 
+            // waitMessage
+            // 
+            this.waitMessage.BackColor = System.Drawing.Color.LightGray;
+            this.waitMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.waitMessage.Controls.Add(this.label4);
+            this.waitMessage.Location = new System.Drawing.Point(143, 71);
+            this.waitMessage.Name = "waitMessage";
+            this.waitMessage.Size = new System.Drawing.Size(200, 100);
+            this.waitMessage.TabIndex = 1;
+            this.waitMessage.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(33, 34);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(143, 24);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Please wait ...";
             // 
             // tableLayoutPanel2
             // 
@@ -324,27 +345,6 @@
             this.timer2.Enabled = true;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // waitMessage
-            // 
-            this.waitMessage.BackColor = System.Drawing.Color.LightGray;
-            this.waitMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.waitMessage.Controls.Add(this.label4);
-            this.waitMessage.Location = new System.Drawing.Point(143, 71);
-            this.waitMessage.Name = "waitMessage";
-            this.waitMessage.Size = new System.Drawing.Size(200, 100);
-            this.waitMessage.TabIndex = 1;
-            this.waitMessage.Visible = false;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(33, 34);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(143, 24);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Please wait ...";
-            // 
             // timer3
             // 
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
@@ -360,13 +360,15 @@
             this.MaximumSize = new System.Drawing.Size(523, 457);
             this.MinimumSize = new System.Drawing.Size(523, 457);
             this.Name = "Form1";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "投影机控制器";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.waitMessage.ResumeLayout(false);
+            this.waitMessage.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage2.ResumeLayout(false);
@@ -375,8 +377,6 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
-            this.waitMessage.ResumeLayout(false);
-            this.waitMessage.PerformLayout();
             this.ResumeLayout(false);
 
         }

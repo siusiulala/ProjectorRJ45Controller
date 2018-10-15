@@ -129,6 +129,7 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(500, 400);
             this.Name = "ValidationForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Validation";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.ValidationForm_Load);
