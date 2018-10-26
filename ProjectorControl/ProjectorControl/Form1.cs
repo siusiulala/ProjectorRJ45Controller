@@ -379,12 +379,14 @@ namespace ProjectorControl
                     }
                     Console.WriteLine("no." + (idx+1) +":  "+  ex.Message);
                     consoleTextQueue.Enqueue("投影机 no." + (idx + 1) + ":  " + ex.Message + "\n");
+                    
                     if (ex.GetType() == typeof(FormatException))
                     {
                         return;
                     }
-
+                    
                     Thread.Sleep(10000);
+                    socketArray[idx] = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 }
             }
            
