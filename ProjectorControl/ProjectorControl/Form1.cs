@@ -14,6 +14,7 @@ using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
 using System.Configuration;
+using Microsoft.Win32;
 
 namespace ProjectorControl
 {
@@ -37,7 +38,14 @@ namespace ProjectorControl
 
         public Form1()
         {
-            InitializeComponent();
+            if (VerifyOptimotion())
+                InitializeComponent();
+            else
+            {
+                MessageBox.Show("请先激活Optimotion后方能使用本工具");
+                Environment.Exit(0);
+            }
+                
 #if USE_RS232
             string[] ports = SerialPort.GetPortNames();
             portsComboBox.Items.Clear();
@@ -61,7 +69,7 @@ namespace ProjectorControl
             };
             sp.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
 #elif USE_RJ45
-            
+
 
 #endif
         }
@@ -90,6 +98,27 @@ namespace ProjectorControl
             }
         }
 #endif
+
+        private bool VerifyOptimotion()
+        {
+            using (var userKey = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, Environment.Is64BitOperatingSystem ? RegistryView.Registry64 : RegistryView
+                .Registry32))
+            {
+                var optimotionPath = userKey.OpenSubKey(@"SOFTWARE\Uniigym\Optimotion");
+                if (optimotionPath == null)
+                    return false;
+                var secretKey = optimotionPath.GetValue("secretKey"); 
+                if (secretKey != null && (string)secretKey != "")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         private void turnOnButton_Click(object sender, EventArgs e)
         {
 #if USE_RS232
