@@ -35,9 +35,9 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.waitMessage = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -58,8 +58,8 @@
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.waitMessage.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage2.SuspendLayout();
@@ -71,24 +71,24 @@
             // turnOnButton
             // 
             this.turnOnButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.turnOnButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.turnOnButton.Location = new System.Drawing.Point(10, 8);
+            this.turnOnButton.Font = new System.Drawing.Font("微軟正黑體", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.turnOnButton.Location = new System.Drawing.Point(10, 17);
             this.turnOnButton.Name = "turnOnButton";
-            this.turnOnButton.Size = new System.Drawing.Size(100, 50);
+            this.turnOnButton.Size = new System.Drawing.Size(280, 150);
             this.turnOnButton.TabIndex = 0;
-            this.turnOnButton.Text = "批量开机";
+            this.turnOnButton.Text = "ON";
             this.turnOnButton.UseVisualStyleBackColor = false;
             this.turnOnButton.Click += new System.EventHandler(this.turnOnButton_Click);
             // 
             // turnOffButton
             // 
             this.turnOffButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.turnOffButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold);
-            this.turnOffButton.Location = new System.Drawing.Point(116, 8);
+            this.turnOffButton.Font = new System.Drawing.Font("微軟正黑體", 36F, System.Drawing.FontStyle.Bold);
+            this.turnOffButton.Location = new System.Drawing.Point(310, 17);
             this.turnOffButton.Name = "turnOffButton";
-            this.turnOffButton.Size = new System.Drawing.Size(100, 50);
+            this.turnOffButton.Size = new System.Drawing.Size(280, 150);
             this.turnOffButton.TabIndex = 1;
-            this.turnOffButton.Text = "批量关机";
+            this.turnOffButton.Text = "OFF";
             this.turnOffButton.UseVisualStyleBackColor = false;
             this.turnOffButton.Click += new System.EventHandler(this.turnOffButton_Click);
             // 
@@ -103,71 +103,69 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Font = new System.Drawing.Font("Arial", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tabControl1.ItemSize = new System.Drawing.Size(64, 48);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(15, 3);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(507, 418);
+            this.tabControl1.Size = new System.Drawing.Size(610, 618);
             this.tabControl1.TabIndex = 7;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.waitMessage);
             this.tabPage1.Controls.Add(this.panel2);
             this.tabPage1.Controls.Add(this.turnOnButton);
             this.tabPage1.Controls.Add(this.turnOffButton);
             this.tabPage1.Location = new System.Drawing.Point(4, 52);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(499, 362);
+            this.tabPage1.Size = new System.Drawing.Size(602, 562);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // panel2
-            // 
-            this.panel2.AutoScroll = true;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.waitMessage);
-            this.panel2.Controls.Add(this.tableLayoutPanel2);
-            this.panel2.Location = new System.Drawing.Point(3, 64);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(492, 298);
-            this.panel2.TabIndex = 9;
             // 
             // waitMessage
             // 
             this.waitMessage.BackColor = System.Drawing.Color.LightGray;
             this.waitMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.waitMessage.Controls.Add(this.label4);
-            this.waitMessage.Location = new System.Drawing.Point(143, 71);
+            this.waitMessage.Location = new System.Drawing.Point(3, 0);
             this.waitMessage.Name = "waitMessage";
-            this.waitMessage.Size = new System.Drawing.Size(200, 100);
+            this.waitMessage.Size = new System.Drawing.Size(596, 562);
             this.waitMessage.TabIndex = 1;
             this.waitMessage.Visible = false;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(33, 34);
+            this.label4.Font = new System.Drawing.Font("Arial", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(111, 239);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(143, 24);
+            this.label4.Size = new System.Drawing.Size(432, 72);
             this.label4.TabIndex = 0;
             this.label4.Text = "Please wait ...";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.AutoScroll = true;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.tableLayoutPanel2);
+            this.panel2.Location = new System.Drawing.Point(3, 201);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(587, 353);
+            this.panel2.TabIndex = 9;
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 8;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel2.ColumnCount = 4;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel2.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.pictureBox1, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.button1, 2, 0);
@@ -175,7 +173,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(450, 28);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(557, 56);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label3
@@ -191,7 +189,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(111, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(225, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(21, 16);
             this.pictureBox1.TabIndex = 8;
@@ -199,7 +197,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(138, 3);
+            this.button1.Location = new System.Drawing.Point(336, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(32, 18);
             this.button1.TabIndex = 9;
@@ -215,7 +213,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 52);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(499, 362);
+            this.tabPage2.Size = new System.Drawing.Size(602, 562);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -226,18 +224,18 @@
             this.label1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label1.Location = new System.Drawing.Point(8, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 16);
+            this.label1.Size = new System.Drawing.Size(99, 16);
             this.label1.TabIndex = 9;
-            this.label1.Text = "投影机数量";
+            this.label1.Text = "Prpjector Num";
             // 
             // ipSaveButton
             // 
             this.ipSaveButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold);
-            this.ipSaveButton.Location = new System.Drawing.Point(378, 11);
+            this.ipSaveButton.Location = new System.Drawing.Point(481, 10);
             this.ipSaveButton.Name = "ipSaveButton";
             this.ipSaveButton.Size = new System.Drawing.Size(100, 36);
             this.ipSaveButton.TabIndex = 8;
-            this.ipSaveButton.Text = "保存配置";
+            this.ipSaveButton.Text = "Save";
             this.ipSaveButton.UseVisualStyleBackColor = true;
             this.ipSaveButton.Click += new System.EventHandler(this.ipSaveButton_Click);
             // 
@@ -248,16 +246,15 @@
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Location = new System.Drawing.Point(4, 58);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(492, 298);
+            this.panel1.Size = new System.Drawing.Size(590, 496);
             this.panel1.TabIndex = 7;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel1.Controls.Add(this.textBox1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(5, 4);
@@ -270,7 +267,7 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("新細明體", 10F);
-            this.textBox1.Location = new System.Drawing.Point(109, 3);
+            this.textBox1.Location = new System.Drawing.Point(173, 3);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 23);
             this.textBox1.TabIndex = 6;
@@ -288,7 +285,7 @@
             // ipNumInput
             // 
             this.ipNumInput.Font = new System.Drawing.Font("新細明體", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.ipNumInput.Location = new System.Drawing.Point(102, 18);
+            this.ipNumInput.Location = new System.Drawing.Point(122, 21);
             this.ipNumInput.Name = "ipNumInput";
             this.ipNumInput.Size = new System.Drawing.Size(55, 23);
             this.ipNumInput.TabIndex = 6;
@@ -303,7 +300,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 52);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(499, 362);
+            this.tabPage3.Size = new System.Drawing.Size(602, 562);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -316,7 +313,7 @@
             this.consoleOutput.Location = new System.Drawing.Point(3, 3);
             this.consoleOutput.Name = "consoleOutput";
             this.consoleOutput.ReadOnly = true;
-            this.consoleOutput.Size = new System.Drawing.Size(493, 356);
+            this.consoleOutput.Size = new System.Drawing.Size(596, 556);
             this.consoleOutput.TabIndex = 0;
             this.consoleOutput.Text = "";
             // 
@@ -353,22 +350,22 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(507, 418);
+            this.ClientSize = new System.Drawing.Size(610, 618);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(523, 457);
-            this.MinimumSize = new System.Drawing.Size(523, 457);
+            this.MaximumSize = new System.Drawing.Size(626, 657);
+            this.MinimumSize = new System.Drawing.Size(626, 657);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "投影机控制器";
+            this.Text = "Projector Controller";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             this.waitMessage.ResumeLayout(false);
             this.waitMessage.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage2.ResumeLayout(false);

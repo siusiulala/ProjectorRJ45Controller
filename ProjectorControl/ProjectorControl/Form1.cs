@@ -231,11 +231,11 @@ namespace ProjectorControl
             ipNumInput.KeyPress += new KeyPressEventHandler(ipNumInput_KeyPress);
             tabControl1.ImageList = imageList1;
             tabControl1.TabPages[0].ImageIndex = 0;
-            tabControl1.TabPages[0].Text = "投影机状态";
+            tabControl1.TabPages[0].Text = "Control";
             tabControl1.TabPages[1].ImageIndex =1;
-            tabControl1.TabPages[1].Text = "连线设定";
+            tabControl1.TabPages[1].Text = "Setting";
             tabControl1.TabPages[2].ImageIndex = 2;
-            tabControl1.TabPages[2].Text = "错误信息";
+            tabControl1.TabPages[2].Text = "Console";
             createStausTable();
 
             threadArray = new Thread[ipNum];
@@ -284,7 +284,7 @@ namespace ProjectorControl
                     statusArray[idx] = -1;
                 }
                 Console.WriteLine("no." + (idx + 1) + ":  " + ex.Message);
-                consoleTextQueue.Enqueue("(开机) 投影机 no." + (idx + 1) + ":  " + ex.Message + "\n");
+                consoleTextQueue.Enqueue("(Turn-on) Projector no." + (idx + 1) + ":  " + ex.Message + "\n");
             }
         }
 
@@ -323,7 +323,7 @@ namespace ProjectorControl
                     statusArray[idx] = -1;
                 }
                 Console.WriteLine("no." + (idx + 1) + ":  " + ex.Message);
-                consoleTextQueue.Enqueue("(关机) 投影机 no." + (idx + 1) + ":  " + ex.Message + "\n");
+                consoleTextQueue.Enqueue("(Turn-off) Projector no." + (idx + 1) + ":  " + ex.Message + "\n");
             }
         }
 
@@ -407,7 +407,7 @@ namespace ProjectorControl
                         statusArray[idx] = -1;
                     }
                     Console.WriteLine("no." + (idx+1) +":  "+  ex.Message);
-                    consoleTextQueue.Enqueue("投影机 no." + (idx + 1) + ":  " + ex.Message + "\n");
+                    consoleTextQueue.Enqueue("Projector no." + (idx + 1) + ":  " + ex.Message + "\n");
                     
                     if (ex.GetType() == typeof(FormatException))
                     {
@@ -454,9 +454,9 @@ namespace ProjectorControl
                 for (int i = 0; i < ipNum; i++)
                 {
                     Label idLabel = new Label();
-                    idLabel.Text = "投影机 no." + (i + 1);
+                    idLabel.Text = "Projector no." + (i + 1);
                     idLabel.AutoSize = false;
-                    idLabel.Size = new Size(103, 28);
+                    idLabel.Size = new Size(153, 28);
                     idLabel.Font = new Font("arial", 12);
                     tableLayoutPanel1.Controls.Add(idLabel, 0 , i );
 
@@ -472,6 +472,7 @@ namespace ProjectorControl
                     comboBox.Items.Add("EH400+");
                     comboBox.Items.Add("ZX310ST");
                     comboBox.Items.Add("ZW310ST");
+                    comboBox.Font = new Font("arial", 10);
                     tableLayoutPanel1.Controls.Add(comboBox, 2, i);
                 }
             }
@@ -527,15 +528,15 @@ namespace ProjectorControl
             if (ipNum > 0)
             {
                 tableLayoutPanel2.RowCount = ipNum;
-                tableLayoutPanel2.Height = ((ipNum - 1) / 2 + 1) * 28;
+                tableLayoutPanel2.Height = ipNum*56;// ((ipNum - 1) / 2 + 1) * 56;
                 for (int i = 0; i < ipNum; i++)
                 {
                     Label idLabel = new Label();
-                    idLabel.Text = "投影机 no." + (i + 1);
+                    idLabel.Text = "Projector no." + (i + 1);
                     idLabel.AutoSize = false;
-                    idLabel.Size = new Size(103, 28);
-                    idLabel.Font = new Font("arial", 12);
-                    tableLayoutPanel2.Controls.Add(idLabel, 4 * (i % 2), i / 2);
+                    idLabel.Size = new Size(206, 56);
+                    idLabel.Font = new Font("arial", 20);
+                    tableLayoutPanel2.Controls.Add(idLabel, 0, i );
 
                     PictureBox statusImg = new PictureBox();
                     statusImg.SizeMode = PictureBoxSizeMode.Zoom;
@@ -558,22 +559,22 @@ namespace ProjectorControl
                             break;
                     }
                     
-                    statusImg.Size = new Size(32, 16);
-                    tableLayoutPanel2.Controls.Add(statusImg, 4 * (i % 2) + 1, i / 2);
+                    statusImg.Size = new Size(64, 32);
+                    tableLayoutPanel2.Controls.Add(statusImg,1, i );
 
                     Button onButton = new Button();
-                    onButton.Text = "开";
-                    onButton.Size = new Size(32, 18);
+                    onButton.Text = "ON";
+                    onButton.Size = new Size(104, 36);
                     onButton.Tag = i;
                     onButton.Click += new EventHandler(onButton_Click);
-                    tableLayoutPanel2.Controls.Add(onButton, 4 * (i % 2) + 2, i / 2);
+                    tableLayoutPanel2.Controls.Add(onButton,  2, i );
 
                     Button offButton = new Button();
-                    offButton.Text = "关";
-                    offButton.Size = new Size(32, 18);
+                    offButton.Text = "OFF";
+                    offButton.Size = new Size(104, 36);
                     offButton.Tag = i;
                     offButton.Click += new EventHandler(offButton_Click);
-                    tableLayoutPanel2.Controls.Add(offButton, 4 * (i % 2) + 3, i / 2);
+                    tableLayoutPanel2.Controls.Add(offButton,  3, i );
                 }
             }
         }
@@ -585,7 +586,7 @@ namespace ProjectorControl
             {
                 for (int i = 0; i < ipNum; i++)
                 {
-                    PictureBox statusImg = tableLayoutPanel2.GetControlFromPosition(4 * (i % 2) + 1, i / 2) as PictureBox;
+                    PictureBox statusImg = tableLayoutPanel2.GetControlFromPosition(1, i ) as PictureBox;
                     switch (statusArray[i])
                     {
                         case 0:     // Power-On
@@ -668,6 +669,11 @@ namespace ProjectorControl
             {
                 waitMessage.Visible = false;
             }
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
     
