@@ -38,13 +38,14 @@ namespace ProjectorControl
 
         public Form1()
         {
-            if (VerifyOptimotion())
-                InitializeComponent();
-            else
-            {
-                MessageBox.Show("请先激活Optimotion后方能使用本工具");
-                Environment.Exit(0);
-            }
+            InitializeComponent();
+            //if (VerifyOptimotion())
+            //    InitializeComponent();
+            //else
+            //{
+            //    MessageBox.Show("请先激活Optimotion后方能使用本工具");
+            //    Environment.Exit(0);
+            //}
                 
 #if USE_RS232
             string[] ports = SerialPort.GetPortNames();
