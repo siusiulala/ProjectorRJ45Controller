@@ -29,6 +29,9 @@ namespace ProjectorControl
         {
             switch (type)
             {
+                // z28 rj45 use PJLink
+                //case "Z28H":
+                //    return "0x23, 0x30, 0x30, 0x30, 0x30, 0x20, 0x31, 0x0D";
                 case "Z15WST":
                     return "0x7E, 0x30, 0x30, 0x30, 0x30, 0x20, 0x31, 0x0D";
                 default:
@@ -40,6 +43,8 @@ namespace ProjectorControl
         {
             switch (type)
             {
+                //case "Z28H":
+                //    return "0x23, 0x30, 0x30, 0x30, 0x30, 0x20, 0x30, 0x0D";
                 case "Z15WST":
                     return "0x7E, 0x30, 0x30, 0x30, 0x30, 0x20, 0x30, 0x0D";
                 default:
@@ -51,6 +56,8 @@ namespace ProjectorControl
         {
             switch (type)
             {
+                //case "Z28H":
+                //    return "0x23, 0x30, 0x30, 0x31, 0x36, 0x32, 0x20, 0x31, 0x0D";
                 case "Z15WST":
                     return "0x7E, 0x30, 0x30, 0x31, 0x32, 0x34, 0x20, 0x31, 0x0D";
                 default:

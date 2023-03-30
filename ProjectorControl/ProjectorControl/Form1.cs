@@ -473,6 +473,7 @@ namespace ProjectorControl
                     comboBox.Items.Add("EH400+");
                     comboBox.Items.Add("ZX310ST");
                     comboBox.Items.Add("ZW310ST");
+                    comboBox.Items.Add("Z28H");
                     comboBox.Font = new Font("arial", 10);
                     tableLayoutPanel1.Controls.Add(comboBox, 2, i);
                 }
